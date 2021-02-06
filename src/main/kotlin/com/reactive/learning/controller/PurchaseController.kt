@@ -1,6 +1,8 @@
 package com.reactive.learning.controller
 
 import com.reactive.learning.model.Purchase
+import com.reactive.learning.service.CoinBaseService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,9 +14,12 @@ import java.time.LocalDateTime
 @RequestMapping("/coin/purchase/v1")
 class PurchaseController {
 
+    @Autowired
+    lateinit var coinBaseService: CoinBaseService
+
     @PostMapping("/{name}")
     fun createPurchase(@PathVariable name: String) : Mono<Purchase>
     {
-        return Mono.fromSupplier { Purchase(name, "12.99", LocalDateTime.now() ) }
+        return coinBaseService.createPurchase(name)
     }
 }

@@ -19,8 +19,15 @@ class WebConfig : WebFluxConfigurer {
 
     @Bean
     fun routerFunctionPurchase(purchaseHandler: PurchaseHandler) : RouterFunction<ServerResponse> {
-        return RouterFunctions.route(RequestPredicates.GET("/coin/purchase/v1/{name}")
+        return RouterFunctions.route(RequestPredicates.GET("/coin/purchase/v1/{id}")
                 .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), purchaseHandler::listPurchases
+        )
+    }
+
+    @Bean
+    fun routerFunctionAllPurchases(purchaseHandler: PurchaseHandler) :RouterFunction<ServerResponse> {
+        return RouterFunctions.route(RequestPredicates.GET("/coin/purchase/v1")
+                .and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), purchaseHandler::listAllPurchases
         )
     }
 
