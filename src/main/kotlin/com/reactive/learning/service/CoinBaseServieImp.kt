@@ -29,8 +29,8 @@ class CoinBaseServieImp : CoinBaseService {
     }
 
     override fun createPurchase(priceName: String): Mono<Purchase> {
-        return getCryptoPrice(priceName).flatMap { price ->
-            reactiveMongoTemplate.save(Purchase("priceName", price.data.amount, LocalDateTime.now()))
+        return getCryptoPrice(priceName).flatMap { coinBaseResponse ->
+            reactiveMongoTemplate.save(Purchase(priceName, coinBaseResponse.data.amount, LocalDateTime.now()))
         }
     }
 

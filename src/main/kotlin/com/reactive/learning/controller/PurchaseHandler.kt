@@ -20,7 +20,7 @@ class PurchaseHandler {
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(purchase, purchase.javaClass)
     }
 
-    fun listAllPurchases(serverRequest: ServerRequest) : Mono<ServerResponse> {
+    fun listAllPurchases() : Mono<ServerResponse> {
         val purchases : Flux<Purchase> = coinBaseService.listAllPurchases()
         return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(purchases.collectList(), purchases.javaClass)
     }
